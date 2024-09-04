@@ -1,5 +1,5 @@
 # ReelsClone
-Este projeto é um clone do Reels - Instagram. _Não tem como objetivo plagiar a marca, mas desenvolver habilidades front-end como: Criação de código a partir de uma referência visual, aproximação como o design proposto, clean code e UX - User Experience.
+Este projeto é um clone do Reels - Instagram. _Não tem como objetivo plagiar a marca_, mas desenvolver habilidades front-end como: Criação de código a partir de uma referência visual, aproximação como o design proposto, clean code e UX - User Experience.
 
 ## Tecnologias usadas
 - [RactJS](https://react.dev/)
@@ -12,7 +12,14 @@ Este projeto é um clone do Reels - Instagram. _Não tem como objetivo plagiar a
 - [X] Funções básicas e estilos com tailwind css
 - [ ] Adição de mais videos para poder rolar para cima
 - [ ] Refinar código e melhorar performace
-- [ ] Deploy 👏 
+- [ ] Deploy 👏
+
+## Como iniciar o projeto
+- Baixe o [Node.js](https://nodejs.org/pt)
+- No terminal de comando:
+  - Digite `npm install` para instalar todas as depedências.
+  - Depois use o comando `npm run dev` para abrir um localhost.
+
 ## Lucide License
 ISC License
 
