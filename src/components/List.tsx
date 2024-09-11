@@ -1,8 +1,8 @@
 import type { HTMLAttributes } from "react";
 
-type listProps = HTMLAttributes<HTMLUListElement> & {
+type listProps = {
 	direction?: "row" | "col";
-};
+} & HTMLAttributes<HTMLUListElement>;
 
 export function List({
 	children: ListItem,

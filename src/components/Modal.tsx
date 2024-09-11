@@ -8,21 +8,16 @@ import {
 	useRef,
 } from "react";
 
-type modalProps = HTMLAttributes<HTMLDialogElement> & {
+type modalProps = {
 	resizeble?: boolean;
-	popover?: boolean;
-};
+} & HTMLAttributes<HTMLDialogElement>;
 
 export interface modalHandles {
 	openModal: () => void;
 }
 
 export const Modal = forwardRef<modalHandles, modalProps>(
-	({ children, resizeble, popover, ...props }, ref) => {
-		const popoverStyle = "m-3 mt-14 bg-zinc-800 rounded-2xl bg-opacity-95";
-		const defaultModalStyle =
-			"bottom-0 right-1/2 rounded-t-2xl min-h-[65%] w-full bg-zinc-800";
-
+	({ children, resizeble, className = "", ...props }, ref) => {
 		const modalRef = useRef<ElementRef<"dialog">>(null);
 
 		const closeModal = () => {
@@ -64,15 +59,21 @@ export const Modal = forwardRef<modalHandles, modalProps>(
 				ref={modalRef}
 				onMouseMove={dragging}
 				onMouseUp={dragEnd}
-				className={`absolute z-10 outline-none border-none ${popover ? popoverStyle : defaultModalStyle}`}
+				className={`absolute z-10 outline-none border-none overflow-y-hidden ${className}`}
 				{...props}
 			>
 				{/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
-				<div
+				<div // Backdrop
 					className="fixed top-0 left-0 h-svh w-lvw -z-10"
 					onClick={closeModal}
 				/>
-				<form method="dialog" className="grid place-items-center">
+				<form
+					method="dialog"
+					onSubmit={(e) => {
+						e.preventDefault();
+					}}
+					className="grid place-items-center"
+				>
 					{resizeble && (
 						<div onMouseDown={dragStart} className="flex justify-center w-full">
 							<Minus className="text-zinc-400 h-9 scale-y-[1.25] scale-x-[2]" />

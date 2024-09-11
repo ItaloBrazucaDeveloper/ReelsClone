@@ -1,14 +1,4 @@
-import {
-	BookDashed,
-	Bookmark,
-	CreativeCommons,
-	Eye,
-	EyeOff,
-	Info,
-	Repeat2,
-	Settings2,
-	TriangleAlert,
-} from "lucide-react";
+import { Icon } from "../Icon";
 import { List } from "../List";
 import { Interaction } from "./Interaction";
 
@@ -21,54 +11,63 @@ export function MoreActions() {
 			>
 				<Interaction text="Save">
 					<div className="grid place-items-center h-12 w-12 outline outline-2 outline-zinc-500 rounded-full">
-						<Bookmark strokeWidth={1.5} />
+						<Icon name="bookmark" strokeWidth={1.5} />
 					</div>
 				</Interaction>
 				<Interaction text="Remix">
 					<div className="grid place-items-center h-12 w-12 outline outline-2 outline-zinc-500 rounded-full">
-						<Repeat2 strokeWidth={1.5} />
+						<Icon name="repeat-2" strokeWidth={1.5} />
 					</div>
 				</Interaction>
 				<Interaction text="Sequence">
 					<div className="grid place-items-center h-12 w-12 outline outline-2 outline-zinc-500 rounded-full">
-						<BookDashed strokeWidth={1.5} />
+						<Icon name="book-dashed" strokeWidth={1.5} />
 					</div>
 				</Interaction>
 			</List>
+			
 			<List className="justify-around gap-3 text-zinc-300 h-full px-5 ">
 				<Interaction
 					text="Captions and translations"
 					textSize="base"
 					inlineItems
 				>
-					<CreativeCommons strokeWidth={1.5} className="mr-2" />
+					<Icon name="creative-commons" strokeWidth={1.5} className="mr-2" />
 				</Interaction>
 				<Interaction
 					text="Why you're seeing this post"
 					textSize="base"
 					inlineItems
 				>
-					<Info strokeWidth={1.5} className="mr-2" />
+					<Icon name="info" strokeWidth={1.5} className="mr-2" />
 				</Interaction>
-				<Interaction text="Interested" textSize="base" inlineItems>
-					<Eye strokeWidth={1.5} className="mr-2" />
+				<Interaction
+					text="Interested"
+					textSize="base"
+					inlineItems
+					>
+					<Icon name="eye" strokeWidth={1.5} className="mr-2" />
 				</Interaction>
-				<Interaction text="Not interested" textSize="base" inlineItems>
-					<EyeOff strokeWidth={1.5} className="mr-2" />
+				<Interaction
+					text="Not interested"
+					textSize="base"
+					inlineItems
+				>
+					<Icon name="eye-off" strokeWidth={1.5} className="mr-2" />
 				</Interaction>
 				<Interaction
 					text="Report..."
 					inlineItems
 					className="text-rose-600 font-medium"
 				>
-					<TriangleAlert className="mr-2" />
+					<Icon name="triangle-alert" className="mr-2" />
 				</Interaction>
 				<Interaction
 					text="Manage content preferences"
 					textSize="base"
 					inlineItems
 				>
-					<Settings2 strokeWidth={1.5} className="mr-2" />
+					<Icon name="settings-2" strokeWidth={1.5} className="mr-2" />
 				</Interaction>
 			</List>
 		</div>

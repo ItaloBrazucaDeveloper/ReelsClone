@@ -1,9 +1,15 @@
 import { type ElementType, type InputHTMLAttributes, forwardRef } from "react";
 
-type inputProps = InputHTMLAttributes<HTMLInputElement> & {
+type inputProps = {
 	icon?: ElementType;
 	inputStyle?: string;
-};
+} & InputHTMLAttributes<HTMLInputElement>;
+
+/**
+ * !Important: If you need add styles use 'className', but if you need a new style or restart default style use 'inputStyle'
+ * @param icon ElementType
+ * @param inputStyle string
+ */
 
 export const Input = forwardRef<HTMLInputElement, inputProps>(
 	({ className = "", icon: Icon, inputStyle, ...props }, ref) => {

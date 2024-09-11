@@ -1,25 +1,44 @@
 import { Heart } from "lucide-react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 type likeProps = {
-	size: number;
+	size?: number;
 	likes: number;
 	className?: string;
 };
 
-export function Like({ likes = 0, size = 0, className = "" }: likeProps) {
-	const [isLiked, setIsLiked] = useState<boolean>(true);
-	const handleIsLiked = () => {
+export function Like({ likes = 0, size = 25, className = "" }: likeProps) {
+	const countLikes = useRef<number>(likes);
+	const [isLiked, setIsLiked] = useState<boolean>(false);
+
+	const handleLike = () => {
 		setIsLiked(!isLiked);
-		likes++;
+		if (countLikes.current < 1000) {
+			isLiked ? countLikes.current-- : countLikes.current++;
+		} else {
+			defineLikes();
+		}
 	};
+
+	function defineLikes(): string {
+		const { current: currentLikes } = countLikes;
+		const strLikes = currentLikes.toLocaleString("en-US");
+		let reducedLength = "";
+
+		if (currentLikes < 1_000_000) {
+			reducedLength = "K";
+		} else if (currentLikes < 1_000_000_000) {
+			reducedLength = "M";
+		} else if (currentLikes >= 1_000_000_000) {
+			reducedLength = "B";
+		}
+
+		return `${strLikes.replace(/[^0-9]*0*$/g, "")}${reducedLength}`;
+	}
 
 	return (
 		// biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
-		<div
-			className={`grid place-items-center ${className}`}
-			onClick={handleIsLiked}
-		>
+		<div className={"grid place-items-center"} onClick={handleLike}>
 			<Heart
 				size={size}
 				strokeWidth={1.5}
@@ -28,7 +47,9 @@ export function Like({ likes = 0, size = 0, className = "" }: likeProps) {
                   ${isLiked ?? "text-zinc-50 fill-transparent"}
                 `}
 			/>
-			<span className="text-sm text-zinc-400">{likes}</span>
+			<span className={`text-sm ${className}`}>
+				{likes < 1000 ? countLikes.current : defineLikes()}
+			</span>
 		</div>
 	);
 }

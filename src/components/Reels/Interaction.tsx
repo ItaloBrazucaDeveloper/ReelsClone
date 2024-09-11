@@ -1,10 +1,10 @@
 import type { HTMLAttributes } from "react";
 
-type interactionProps = HTMLAttributes<HTMLLIElement> & {
+type interactionProps = {
 	text?: string;
 	textSize?: string;
 	inlineItems?: boolean;
-};
+} & HTMLAttributes<HTMLLIElement>;
 
 export function Interaction({
 	textSize = "sm",

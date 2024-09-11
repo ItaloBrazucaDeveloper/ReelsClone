@@ -1,17 +1,16 @@
-import type { ElementType } from "react";
+import type dynamicIconImports from "lucide-react/dynamicIconImports";
+import { Icon } from "../../Icon";
 
-type tagProps = {
-	icon: ElementType;
+export interface tagProps {
+	iconName: keyof typeof dynamicIconImports;
 	text: string;
 };
 
-export function Tag({ icon: Icon, text = "" }: tagProps) {
+export function Tag({ iconName, text = "" }: tagProps) {
 	return (
 		<li className="flex gap-1 bg-zinc-700 bg-opacity-65 outline outline-1 outline-zinc-500 px-2.5 py-0.5 rounded-full">
-			<div className="flex gap-1 justify-center items-center select-none">
-				<Icon size={13} className="text-zinc-300" />
-				<span className="text-zinc-300 text-xs">{text}</span>
-			</div>
+			<Icon name={iconName} size={13} className="text-zinc-300" />
+			<span className="text-zinc-300 text-xs">{text}</span>
 		</li>
 	);
 }

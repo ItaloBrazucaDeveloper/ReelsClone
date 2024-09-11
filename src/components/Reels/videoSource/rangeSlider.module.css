@@ -7,15 +7,16 @@
   overflow: hidden;
   background: transparent;
   
+  
   /* Thumb of input[type="range"] */
   &::-webkit-slider-thumb
   {
     appearance: none;
     height: 0;
     width: 0;
-    box-shadow: -750px 0 100px 400px #6366f1,
-                -550px 0 100px 400px #a855f7,
-                -400px 0 100px 400px #ec4899;
+    box-shadow: -700px 0 40px 400px #bb5ae2,
+                -550px 0 70px 400px #f7b455,
+                -400px 0 40px 400px #ec4899;
     transition: all .5s ease-in-out;
   }
 }
