@@ -1,17 +1,45 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Icon } from "./components/Icon";
 import { Modal, type modalHandles } from "./components/Modal";
-import Reels from "./components/Reels";
+import Reels, { type reelsProps } from "./components/Reels";
+import type { videoHandle } from "./components/Reels/videoSource";
 
 export default function App() {
 	const popoverRef = useRef<modalHandles>(null);
+	const reelsVideoRef = useRef<videoHandle>(null);
+	const [reels, setReels] = useState<reelsProps[] | null>(null);
+
 	const openPopover = () => {
 		popoverRef.current?.openModal();
 	};
 
+	function setPlayedVideo(e: React.WheelEvent<HTMLDivElement>) {
+		const { offsetHeight: containerHeight, scrollTop } = e.currentTarget;
+		const middleLine = (containerHeight + scrollTop) / 2;
+
+		const { top: topReels, bottom: endReels } =
+			reelsVideoRef.current!.getProps();
+
+		if (middleLine >= topReels && endReels >= middleLine) {
+			reelsVideoRef.current?.playVideo();
+		} else {
+			reelsVideoRef.current?.pauseVideo();
+		}
+	}
+
+	useEffect(() => {
+		fetch("src/data/reels.json")
+			.then((res) => res.json())
+			.catch(() => console.log("deu ruim"))
+			.then((json: reelsProps[]) => setReels(json));
+	}, []);
+
 	return (
 		<main className="grid place-items-center h-lvh w-full bg-zinc-900">
-			<div className="relative overflow-y-scroll snap-y snap-mandatory scrollbar-none max-sm:h-lvh max-sm:w-full rounded-xl h-[90%] w-[25rem]">
+			<div
+				onScroll={setPlayedVideo}
+				className="relative overflow-y-scroll snap-y snap-mandatory scrollbar-none max-sm:h-lvh max-sm:w-full rounded-xl h-[90%] w-[25rem]"
+			>
 				{/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
 				<h1
 					onClick={openPopover}
@@ -42,59 +70,19 @@ export default function App() {
 						</li>
 					</ul>
 				</Modal>
-				{/* ----- Videos ----- */}
-				<Reels
-					key={"reels_1"}
-					src={"./assets/videos/video_cooking.mp4"}
-					videoInfo={{
-						userName: "cooktimes__",
-						likes: 4000,
-						photoSource: "./assets/img/userPhoto.jpg",
-						isFollowingThisUser: false,
-					}}
-					tags={[{ iconName: "gift", text: "Give a gift" }]}
-				/>
-				<Reels
-					key={"reels_2"}
-					src={"./assets/videos/video_cat.mp4"}
-					videoInfo={{
-						userName: "crazy__cat",
-						likes: 1_501_970,
-						photoSource: "./assets/img/userPhoto.jpg",
-						isFollowingThisUser: true,
-					}}
-				/>
-				<Reels
-					key={"reels_3"}
-					src={"./assets/videos/video_beautyPlace.mp4"}
-					videoInfo={{
-						userName: "beuatyplace_s",
-						likes: 204_439,
-						photoSource: "./assets/img/userPhoto.jpg",
-						isFollowingThisUser: false,
-					}}
-					tags={[{ iconName: "music", text: "Original audio" }]}
-					comments={[
-						{
-							likes: 15,
-							text: "What a wonderfull world!!!",
-							userName: "ritalee23",
-							userPhotoSource: "",
-						},
-						{
-							likes: 100,
-							text: "😭😭 Beautyfull",
-							userName: "",
-							userPhotoSource: "",
-						},
-						{
-							likes: 120,
-							text: "Where??? Tell me!",
-							userName: "",
-							userPhotoSource: "",
-						},
-					]}
-				/>
+				{reels?.map((reels, index) => (
+					<Reels
+						key={`reels_${index + 1}`}
+						ref={reelsVideoRef}
+						src={reels.src}
+						userName={reels.userName}
+						likes={reels.likes}
+						userPhoto={reels.userPhoto}
+						isFollowingThisUser={reels.isFollowingThisUser}
+						tags={reels.tags}
+						comments={reels.comments}
+					/>
+				))}
 			</div>
 		</main>
 	);

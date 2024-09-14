@@ -4,7 +4,7 @@ import { Input } from "../Input";
 import { List } from "../List";
 import { Interaction } from "./Interaction";
 
-export function SendForFriend() {
+function SendForFriend() {
 	return (
 		<div className="grid place-items-center w-full gap-3 px-4">
 			<div className="flex items-center justify-center w-full gap-4">
@@ -18,7 +18,7 @@ export function SendForFriend() {
 				/>
 				<Icon name="user-plus" size={21} className="text-zinc-300" />
 			</div>
-			
+
 			<footer className="absolute left-1/2 bottom-0 -translate-x-1/2 grid gap-2 mb-6 pt-3.5 w-full border-t-2 border-zinc-700 border-opacity-25 bg-zinc-800">
 				<List
 					direction="row"
@@ -63,3 +63,5 @@ export function SendForFriend() {
 		</div>
 	);
 }
+
+export default SendForFriend;

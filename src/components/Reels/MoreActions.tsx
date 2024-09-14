@@ -2,7 +2,7 @@ import { Icon } from "../Icon";
 import { List } from "../List";
 import { Interaction } from "./Interaction";
 
-export function MoreActions() {
+function MoreActions() {
 	return (
 		<div className="w-full h-full">
 			<List
@@ -25,7 +25,7 @@ export function MoreActions() {
 					</div>
 				</Interaction>
 			</List>
-			
+
 			<List className="justify-around gap-3 text-zinc-300 h-full px-5 ">
 				<Interaction
 					text="Captions and translations"
@@ -41,18 +41,10 @@ export function MoreActions() {
 				>
 					<Icon name="info" strokeWidth={1.5} className="mr-2" />
 				</Interaction>
-				<Interaction
-					text="Interested"
-					textSize="base"
-					inlineItems
-					>
+				<Interaction text="Interested" textSize="base" inlineItems>
 					<Icon name="eye" strokeWidth={1.5} className="mr-2" />
 				</Interaction>
-				<Interaction
-					text="Not interested"
-					textSize="base"
-					inlineItems
-				>
+				<Interaction text="Not interested" textSize="base" inlineItems>
 					<Icon name="eye-off" strokeWidth={1.5} className="mr-2" />
 				</Interaction>
 				<Interaction
@@ -73,3 +65,5 @@ export function MoreActions() {
 		</div>
 	);
 }
+
+export default MoreActions;

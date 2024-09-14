@@ -79,7 +79,7 @@ export const Modal = forwardRef<modalHandles, modalProps>(
 							<Minus className="text-zinc-400 h-9 scale-y-[1.25] scale-x-[2]" />
 						</div>
 					)}
-					{children ?? ""}
+					{children}
 				</form>
 			</dialog>
 		);

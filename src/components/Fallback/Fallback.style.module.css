@@ -6,7 +6,7 @@
   }
 }
 
-.fallback {
+.spin {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -14,7 +14,7 @@
   height: 50px;
   width: 50px;
   border-radius: 100%;
-  border: 7px solid grey;
-  border-left: 7px solid #fff;
-  animation: rotate infinite linear 1.15s forwards;
+  border: 4px solid grey;
+  border-left: 4px solid #fff;
+  animation: rotate infinite linear 1.15s backwards;
 }

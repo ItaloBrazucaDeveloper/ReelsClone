@@ -1,13 +1,17 @@
 import { Heart } from "lucide-react";
-import { useRef, useState } from "react";
+import { type HTMLAttributes, useRef, useState } from "react";
 
 type likeProps = {
 	size?: number;
 	likes: number;
-	className?: string;
-};
+} & HTMLAttributes<HTMLSpanElement>;
 
-export function Like({ likes = 0, size = 25, className = "" }: likeProps) {
+export function Like({
+	likes = 0,
+	size = 25,
+	className = "",
+	style = {},
+}: likeProps) {
 	const countLikes = useRef<number>(likes);
 	const [isLiked, setIsLiked] = useState<boolean>(false);
 
@@ -15,8 +19,6 @@ export function Like({ likes = 0, size = 25, className = "" }: likeProps) {
 		setIsLiked(!isLiked);
 		if (countLikes.current < 1000) {
 			isLiked ? countLikes.current-- : countLikes.current++;
-		} else {
-			defineLikes();
 		}
 	};
 
@@ -33,7 +35,7 @@ export function Like({ likes = 0, size = 25, className = "" }: likeProps) {
 			reducedLength = "B";
 		}
 
-		return `${strLikes.replace(/[^0-9]*0*$/g, "")}${reducedLength}`;
+		return `${strLikes.match(/^\d*\,*?[1-9]{1,2}/g)}${reducedLength}`;
 	}
 
 	return (
@@ -47,7 +49,7 @@ export function Like({ likes = 0, size = 25, className = "" }: likeProps) {
                   ${isLiked ?? "text-zinc-50 fill-transparent"}
                 `}
 			/>
-			<span className={`text-sm ${className}`}>
+			<span className={`text-sm ${className}`} style={style}>
 				{likes < 1000 ? countLikes.current : defineLikes()}
 			</span>
 		</div>
