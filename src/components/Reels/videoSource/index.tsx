@@ -12,7 +12,7 @@ type reelsVideoProps = VideoHTMLAttributes<HTMLVideoElement>;
 
 export interface videoHandle {
 	playPauseVideo: () => void;
-	getProps: () => DOMRect;
+	getProps: () => DOMRect | null;
 	playVideo: () => void;
 	pauseVideo: () => void;
 }
@@ -38,8 +38,8 @@ const VideoSource = forwardRef<videoHandle, reelsVideoProps>(
 			}
 		};
 
-		function getProps(): DOMRect {
-			return divRef.current!.getBoundingClientRect();
+		function getProps(): DOMRect | null {
+			return divRef.current?.getBoundingClientRect() || null;
 		}
 
 		useImperativeHandle(ref, () => {
@@ -56,12 +56,16 @@ const VideoSource = forwardRef<videoHandle, reelsVideoProps>(
 		});
 
 		return (
-			<div ref={divRef} className="relative h-full w-full overflow-hidden">
+			// biome-ignore lint/a11y/useKeyWithClickEvents: <onKeydown has in Document>
+			<div
+				ref={divRef}
+				onClick={playPauseVideo}
+				className="relative h-full w-full overflow-hidden"
+			>
 				<video
 					loop
 					muted
 					autoPlay
-					playsInline
 					ref={videoRef}
 					src={src}
 					onTimeUpdate={handleTrackVideo}

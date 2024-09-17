@@ -18,19 +18,19 @@ export default function App() {
 		const middleLine = (containerHeight + scrollTop) / 2;
 
 		const { top: topReels, bottom: endReels } =
-			reelsVideoRef.current!.getProps();
+			reelsVideoRef.current?.getProps() || {};
 
-		if (middleLine >= topReels && endReels >= middleLine) {
-			reelsVideoRef.current?.playVideo();
-		} else {
+		if (middleLine >= (topReels ?? 0) && (endReels ?? 0) >= middleLine) {
 			reelsVideoRef.current?.pauseVideo();
+		} else {
+			reelsVideoRef.current?.playVideo();
 		}
 	}
 
 	useEffect(() => {
 		fetch("src/data/reels.json")
 			.then((res) => res.json())
-			.catch(() => console.log("deu ruim"))
+			.catch((error) => console.log(error))
 			.then((json: reelsProps[]) => setReels(json));
 	}, []);
 
