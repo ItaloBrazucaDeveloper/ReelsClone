@@ -20,8 +20,7 @@ export interface modalHandles {
  * @param resizeble boolean
  * @param props Any HTMLDialogElement attributes
  * @return Dialog HTML Element
- * 
- * !Important: This Modal component must have a 'ref' type of modalHandles
+ * @requires ref type of modalHandles
  */
 
 const Modal = forwardRef<modalHandles, modalProps>(

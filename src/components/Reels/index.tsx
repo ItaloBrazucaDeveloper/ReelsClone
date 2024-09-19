@@ -26,8 +26,8 @@ export type reelsProps = {
  * @param userPhoto string
  * @param likes number
  * @param isFollowingThisUser boolean
- * @param tags [ { icon: string, text: string }, ... ]
- * @param comments []
+ * @param tags tagsProps[]
+ * @param comments commentsProps
  * @return Reels Component
  *
  */

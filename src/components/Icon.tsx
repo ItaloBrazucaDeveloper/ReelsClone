@@ -6,6 +6,9 @@ interface IconProps extends Omit<LucideProps, "ref"> {
 	name: keyof typeof dynamicIconImports;
 }
 
+/**
+ * @param name keyof typeof dynamicIconImports
+ */
 export function Icon({ name, ...props }: IconProps) {
 	const LucideIcon = lazy(dynamicIconImports[name]);
 	return (

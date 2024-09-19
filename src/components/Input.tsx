@@ -2,19 +2,15 @@ import { type ElementType, type InputHTMLAttributes, forwardRef } from "react";
 
 type inputProps = {
 	icon?: ElementType;
-	inputStyle?: string;
 } & InputHTMLAttributes<HTMLInputElement>;
 
 /**
  * @param icon ElementType
- * @param inputStyle string
- * @return Input Component
- * 
- * !Important: If you need add styles use 'className', but if you need a new style or restart default style use 'inputStyle'
+ * @description This component is for all input type with placeholder attribute
  */
 
 const Input = forwardRef<HTMLInputElement, inputProps>(
-	({ className = "", icon: Icon, inputStyle, ...props }, ref) => {
+	({ className = "", icon: Icon, type = "text", ...props }, ref) => {
 		return (
 			<div className={`relative ${className}`}>
 				{Icon && (
@@ -24,11 +20,8 @@ const Input = forwardRef<HTMLInputElement, inputProps>(
 				)}
 				<input
 					ref={ref}
-					placeholder=" "
-					className={
-						inputStyle ??
-						`rounded-lg border-none outline-none bg-inherit text-zinc-300 py-1.5 px-3 ${Icon && "pl-10"} h-full w-full placeholder:text-sm placeholder:text-zinc-500`
-					}
+					type={type}
+					className={`rounded-lg border-none outline-none bg-inherit text-zinc-300 py-1.5 px-3 h-full w-full placeholder:text-sm placeholder:text-zinc-500 ${Icon && "pl-10"}`}
 					{...props}
 				/>
 			</div>

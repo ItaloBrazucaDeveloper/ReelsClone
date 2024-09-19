@@ -5,7 +5,3 @@ const FallBack = () => {
 };
 
 export default FallBack;
-
-export const SkeletonLoading = () => {
-	return <div className="" />
-};

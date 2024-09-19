@@ -5,7 +5,6 @@ import {
 	useImperativeHandle,
 	useRef,
 } from "react";
-import Input from "../../Input";
 import style from "./RangeSlider.module.css";
 
 type reelsVideoProps = VideoHTMLAttributes<HTMLVideoElement>;
@@ -21,7 +20,6 @@ export interface videoHandle {
 /**
  * @param src string
  * @param props Any HTMLVideoElement Attributes
- * @return Video Compoenent
  */
 
 const VideoSource = forwardRef<videoHandle, reelsVideoProps>(
@@ -77,7 +75,7 @@ const VideoSource = forwardRef<videoHandle, reelsVideoProps>(
 					className="h-full w-full object-cover"
 					{...props}
 				/>
-				<Input type="range" ref={rangeRef} inputStyle={style.range_slider} />
+				<input type="range" ref={rangeRef} className={style.range_slider} />
 			</div>
 		);
 	},
