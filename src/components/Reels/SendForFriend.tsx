@@ -1,6 +1,6 @@
 import { Search } from "lucide-react";
 import { Icon } from "../Icon";
-import { Input } from "../Input";
+import Input from "../Input";
 import { List } from "../List";
 import { Interaction } from "./Interaction";
 

@@ -5,17 +5,24 @@ import {
 	useImperativeHandle,
 	useRef,
 } from "react";
-import { Input } from "../../Input";
+import Input from "../../Input";
 import style from "./RangeSlider.module.css";
 
 type reelsVideoProps = VideoHTMLAttributes<HTMLVideoElement>;
 
 export interface videoHandle {
 	playPauseVideo: () => void;
+	/** Return DOMRect of container from VideoSource component  */
 	getProps: () => DOMRect | null;
 	playVideo: () => void;
 	pauseVideo: () => void;
 }
+
+/**
+ * @param src string
+ * @param props Any HTMLVideoElement Attributes
+ * @return Video Compoenent
+ */
 
 const VideoSource = forwardRef<videoHandle, reelsVideoProps>(
 	({ src = "", ...props }, ref) => {
@@ -30,30 +37,28 @@ const VideoSource = forwardRef<videoHandle, reelsVideoProps>(
 			if (rangeRef.current) rangeRef.current.value = `${value}`;
 		};
 
-		const playPauseVideo = (): void => {
-			if (videoRef?.current?.paused) {
-				videoRef.current?.play();
-			} else {
-				videoRef?.current?.pause();
-			}
-		};
-
 		function getProps(): DOMRect | null {
 			return divRef.current?.getBoundingClientRect() || null;
 		}
 
-		useImperativeHandle(ref, () => {
-			return {
-				playPauseVideo,
-				getProps,
-				playVideo(): void {
-					videoRef.current?.play();
-				},
-				pauseVideo(): void {
-					videoRef.current?.pause();
-				},
-			};
-		});
+		const playVideo = (): void => {
+			videoRef.current?.play();
+		};
+
+		const pauseVideo = (): void => {
+			videoRef.current?.pause();
+		};
+
+		const playPauseVideo = (): void => {
+			videoRef.current?.paused ? playVideo() : pauseVideo();
+		};
+
+		useImperativeHandle(ref, () => ({
+			playPauseVideo,
+			getProps,
+			playVideo,
+			pauseVideo,
+		}));
 
 		return (
 			// biome-ignore lint/a11y/useKeyWithClickEvents: <onKeydown has in Document>

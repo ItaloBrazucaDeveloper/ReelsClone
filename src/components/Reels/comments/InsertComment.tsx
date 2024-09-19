@@ -1,6 +1,6 @@
 import { type ElementRef, useRef } from "react";
 import { Icon } from "../../Icon";
-import { Input } from "../../Input";
+import Input from "../../Input";
 
 export type comment = {
 	userPhotoSource: string;

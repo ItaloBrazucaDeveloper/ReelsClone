@@ -6,12 +6,14 @@ type inputProps = {
 } & InputHTMLAttributes<HTMLInputElement>;
 
 /**
- * !Important: If you need add styles use 'className', but if you need a new style or restart default style use 'inputStyle'
  * @param icon ElementType
  * @param inputStyle string
+ * @return Input Component
+ * 
+ * !Important: If you need add styles use 'className', but if you need a new style or restart default style use 'inputStyle'
  */
 
-export const Input = forwardRef<HTMLInputElement, inputProps>(
+const Input = forwardRef<HTMLInputElement, inputProps>(
 	({ className = "", icon: Icon, inputStyle, ...props }, ref) => {
 		return (
 			<div className={`relative ${className}`}>
@@ -22,6 +24,7 @@ export const Input = forwardRef<HTMLInputElement, inputProps>(
 				)}
 				<input
 					ref={ref}
+					placeholder=" "
 					className={
 						inputStyle ??
 						`rounded-lg border-none outline-none bg-inherit text-zinc-300 py-1.5 px-3 ${Icon && "pl-10"} h-full w-full placeholder:text-sm placeholder:text-zinc-500`
@@ -32,3 +35,5 @@ export const Input = forwardRef<HTMLInputElement, inputProps>(
 		);
 	},
 );
+
+export default Input;

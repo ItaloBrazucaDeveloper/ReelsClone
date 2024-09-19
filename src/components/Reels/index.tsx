@@ -2,15 +2,15 @@ import { Suspense, forwardRef, lazy, useRef, useState } from "react";
 import { Icon } from "../Icon";
 import { Like } from "../Like";
 import { List } from "../List";
-import { Modal, type modalHandles } from "../Modal";
+import Modal, { type modalHandles } from "../Modal";
 import FallBack from "../fallback";
-import type { commentsProps } from "./Comments";
 import { Interaction } from "./Interaction";
+import type { commentsProps } from "./comments/index.tsx";
 import { VideoInfo } from "./videoInfo";
 import type { tagProps } from "./videoInfo/Tag";
 import VideoSource, { type videoHandle } from "./videoSource";
 
-export interface reelsProps extends commentsProps {
+export type reelsProps = {
 	src: string;
 	userName: string;
 	userPhoto: string;
@@ -18,7 +18,19 @@ export interface reelsProps extends commentsProps {
 	isFollowingThisUser: boolean;
 	musicPhotoAlbum?: string;
 	tags?: tagProps[];
-}
+} & commentsProps;
+
+/**
+ * @param src string
+ * @param userName string
+ * @param userPhoto string
+ * @param likes number
+ * @param isFollowingThisUser boolean
+ * @param tags [ { icon: string, text: string }, ... ]
+ * @param comments []
+ * @return Reels Component
+ *
+ */
 
 const Reels = forwardRef<videoHandle, reelsProps>(
 	(
@@ -34,7 +46,7 @@ const Reels = forwardRef<videoHandle, reelsProps>(
 		},
 		ref,
 	) => {
-		const Comments = lazy(async () => await import("./Comments"));
+		const Comments = lazy(async () => await import("./comments/index.tsx"));
 		const SendForFriend = lazy(async () => await import("./SendForFriend.tsx"));
 		const MoreActions = lazy(async () => await import("./MoreActions.tsx"));
 
@@ -47,7 +59,7 @@ const Reels = forwardRef<videoHandle, reelsProps>(
 		};
 
 		return (
-			<div className="relative h-full snap-center">
+			<div className="relative h-full snap-start">
 				<Modal
 					resizeble
 					ref={modalRef}
@@ -56,15 +68,7 @@ const Reels = forwardRef<videoHandle, reelsProps>(
 					<Suspense fallback={<FallBack />}>{modalContent}</Suspense>
 				</Modal>
 				<VideoSource ref={ref} src={src} />
-				<header className="absolute top-0 right-0 m-2.5 flex items-center text-3xl font-bold text-zinc-100">
-					<Icon
-						name="camera"
-						size={30}
-						strokeWidth={1.75}
-						className="text-zinc-200"
-					/>
-				</header>
-				<div className="absolute bottom-0 mb-5 ml-2.5 flex flex-col items-start gap-1.5 text-zinc-50">
+				<div className="absolute bottom-0 mb-5 ml-2.5 flex flex-col items-start gap-1.5 w-[65%] text-zinc-50">
 					<VideoInfo
 						userInfo={{
 							userPhoto: userPhoto,
@@ -83,8 +87,8 @@ const Reels = forwardRef<videoHandle, reelsProps>(
 						/>
 					</Interaction>
 					<Interaction
-						text="441"
 						title="Comments"
+						text="441"
 						style={{ textShadow: "1px 1px 1.5px #000" }}
 					>
 						<Icon
@@ -97,8 +101,8 @@ const Reels = forwardRef<videoHandle, reelsProps>(
 						/>
 					</Interaction>
 					<Interaction
-						text="73.3k"
 						title="Share"
+						text="73.3k"
 						style={{ textShadow: "1px 1px 1.5px #000" }}
 					>
 						<Icon
