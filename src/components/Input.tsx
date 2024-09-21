@@ -10,7 +10,10 @@ type inputProps = {
  */
 
 const Input = forwardRef<HTMLInputElement, inputProps>(
-	({ className = "", icon: Icon, type = "text", ...props }, ref) => {
+	(
+		{ className = "", icon: Icon, type = "text", placeholder, ...props },
+		ref
+	) => {
 		return (
 			<div className={`relative ${className}`}>
 				{Icon && (
@@ -21,7 +24,7 @@ const Input = forwardRef<HTMLInputElement, inputProps>(
 				<input
 					ref={ref}
 					type={type}
-					className={`rounded-lg border-none outline-none bg-inherit text-zinc-300 py-1.5 px-3 h-full w-full placeholder:text-sm placeholder:text-zinc-500 ${Icon && "pl-10"}`}
+					className={`${placeholder && "rounded-lg border-none outline-none bg-inherit text-zinc-300 py-1.5 px-3 h-full w-full placeholder:text-sm placeholder:text-zinc-500"} ${Icon && "pl-10"}`}
 					{...props}
 				/>
 			</div>

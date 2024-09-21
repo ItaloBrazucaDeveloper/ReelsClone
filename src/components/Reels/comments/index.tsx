@@ -49,7 +49,7 @@ function Comments({ comments }: commentsProps) {
 								</div>
 								<Like size={16} likes={likes} className={"text-zinc-300"} />
 							</li>
-						),
+						)
 					)}
 				</ul>
 			</div>

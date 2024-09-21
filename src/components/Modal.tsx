@@ -27,17 +27,28 @@ const Modal = forwardRef<modalHandles, modalProps>(
 	({ children, resizeble, className = "", ...props }, ref) => {
 		const modalRef = useRef<ElementRef<"dialog">>(null);
 
-		const closeModal = () => {
-			modalRef.current?.close();
-			if (modalRef.current) modalRef.current.style.height = "fit-content";
+		const escCloseModal = (e) => {
+			if (e.key === "Escape") {
+				modalRef.current?.close();
+			}
 		};
 
-		const openModal = () => {
+		const closeModal = () => {
+			if (modalRef.current) {
+				modalRef.current.close();
+				modalRef.current.style.height = "fit-content";
+				document.removeEventListener("keydown", escCloseModal);
+			}
+		};
+
+		const openModal = (): void => {
 			modalRef.current?.show();
+			document.addEventListener("keydown", escCloseModal);
 		};
 
 		useImperativeHandle(ref, () => ({ openModal }));
 
+		// Resizeble Modal functions
 		let isDragStart: boolean;
 		let prevPosition: number;
 		let prevModalHeight: number;

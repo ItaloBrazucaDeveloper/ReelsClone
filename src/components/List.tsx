@@ -4,6 +4,10 @@ type listProps = {
 	direction?: "row" | "col";
 } & HTMLAttributes<HTMLUListElement>;
 
+/**
+ *  @param direction "col" or "row"
+ */
+
 export function List({
 	children: ListItem,
 	className = "",
