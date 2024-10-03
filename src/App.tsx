@@ -25,7 +25,7 @@ export default function App() {
 	useEffect(() => {
 		fetch("src/data/reels.json")
 			.then((res) => res.json())
-			.catch((error) => console.log(error))
+			.catch((error) => console.error(error))
 			.then((json: reelsProps[]) => setReels(json));
 	}, []);
 

@@ -22,12 +22,11 @@ export interface modalHandles {
  * @return Dialog HTML Element
  * @requires ref type of modalHandles
  */
-
 const Modal = forwardRef<modalHandles, modalProps>(
 	({ children, resizeble, className = "", ...props }, ref) => {
 		const modalRef = useRef<ElementRef<"dialog">>(null);
 
-		const escCloseModal = (e) => {
+		const escCloseModal = (e: { key: string; }) => {
 			if (e.key === "Escape") {
 				modalRef.current?.close();
 			}

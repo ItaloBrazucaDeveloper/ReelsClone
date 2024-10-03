@@ -10,7 +10,6 @@ type likeProps = {
  * @param likes number
  * @param size number
  */
-
 export function Like({
 	likes = 0,
 	size = 25,
